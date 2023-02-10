@@ -1,15 +1,39 @@
 package model;
 
-import java.nio.charset.CoderResult;
-
 public class Question {
     private String id;
     private String statement;
     private int result;
-    private Question next;
     private boolean solved;
     private boolean pointed;
     private boolean correct;
+    private Question next;
+    
+    public String getStatement() {
+        return statement;
+    }
+
+    public boolean isSolved() {
+        return solved;
+    }
+
+    
+    public int getResult() {
+        return result;
+    }
+
+
+    public boolean isPointed(){
+        return pointed;
+    }
+    
+    public String getId() {
+        return id;
+    }
+
+    public void wasCorrect(){
+        this.correct = true;
+    }
 
     public Question getNext() {
         return next;
@@ -25,6 +49,10 @@ public class Question {
 
     public void point(){
         this.pointed=true;
+    }
+
+    public void unpoint(){
+        this.pointed=false;
     }
 
     public Question(String id, String statement, int result) {

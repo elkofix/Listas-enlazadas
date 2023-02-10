@@ -21,7 +21,25 @@ public class Main {
         askName();
         initializeUserQuestions();
         System.out.println(control.printList());
-        
+        askQuestion();
+        System.out.println(control.printList());
+        askQuestion();
+        System.out.println(control.printList());
+        askQuestion();
+        System.out.println(control.printList());
+        askQuestion();
+        System.out.println(control.printList());
+    }
+
+    public void askQuestion(){
+        String[] statementResult = control.askQuestion();
+        System.out.println(statementResult[0]);
+        int result = sc.nextInt();
+        if(control.verifyQuestion(result, control.askQuestion()[1])){
+            System.out.println("Correct!");   
+        }else{
+            System.out.println("Too bad! Wrong.");
+        }
     }
     
     public void askName(){

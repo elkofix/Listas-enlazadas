@@ -28,24 +28,9 @@ public class Controller {
     }
     public boolean generateQuestion(int numberQuestions){
         return generateQuestion(numberQuestions, null, 1);
-    }
-        
+    }   
 
 
-    public boolean generateQuestion(int numberQuestions, Question addQuestion, int currentQuestion){
-        if(currentQuestion>numberQuestions){
-            return true;
-        }
-        int n = ((int)(Math.random())*100)+1;
-        int m = ((int)(Math.random())*100)+1;
-        int operation = ((int)(Math.random())*4)+1;
-        int result = giveResult(n, m, operation);
-        addQuestion = new Question(currentQuestion+"", giveStatement(n, m, operation), result);
-        addQuestion(addQuestion);
-        currentQuestion++;
-        return generateQuestion(numberQuestions, addQuestion, currentQuestion);
-
-    }
     public String printList(){
         String msj = "";
         return printlist(first, msj);
@@ -60,6 +45,91 @@ public class Controller {
         return printlist(current, list);
     }
 
+    public String[] askQuestion(){
+        return askQuestion(first, false);
+    }
+
+    public String[] askQuestion(Question currentQuestion, boolean isSolved){
+        if(currentQuestion==null){
+            String a[] = {"Terminaste el juego", "1"};
+            return a;
+        }
+        if((currentQuestion.isSolved()==false && currentQuestion.isPointed()==false) || ((currentQuestion.isSolved()==false && currentQuestion.isPointed()==true) && currentQuestion.equals(first))){
+            currentQuestion.point();
+            String a[] = {currentQuestion.getStatement(), currentQuestion.getId()};
+            currentQuestion.unpoint();
+            return a;
+        }
+        if(currentQuestion.isSolved()==true && currentQuestion.isPointed()==true){
+            currentQuestion.unpoint();
+        }
+        currentQuestion = currentQuestion.getNext();
+        return askQuestion(currentQuestion, false);
+    }
+
+    public boolean verifyQuestion(int result, String id){
+        boolean correct=false;
+        if(search(id).getResult()==result){
+            
+            search(id).wasSolved();
+            search(id).wasCorrect();
+            correct = true;
+        }else{
+            search(id).wasSolved();
+        }
+        return correct;
+    }
+
+    public Question search(String id) {
+        return search(id, first);
+    }
+
+
+
+    
+    public Question search(String id, Question current) {
+        if(current==null){
+            return current;
+        }
+        if(current.getId().equals(id)){
+            return current;
+        }
+        current = current.getNext();
+        return search(id, current);
+    }
+
+    public boolean generateQuestion(int numberQuestions, Question addQuestion, int currentQuestion){
+        if(currentQuestion>numberQuestions){
+            return true;
+        }
+        int n = ((int)((Math.random())*100))+1;
+        int m = ((int)((Math.random())*100))+1;
+        int operation = ((int)((Math.random())*3))+1;
+        int result = giveResult(n, m, operation);
+        System.out.println(operation);
+        addQuestion = new Question(currentQuestion+"", giveStatement(n, m, operation), result);
+        addQuestion(addQuestion);
+        currentQuestion++;
+        return generateQuestion(numberQuestions, addQuestion, currentQuestion);
+
+    }
+
+    public int giveResult(int n, int m, int operation){
+        int result = 1;
+        if(operation==1){
+            result = n+m;
+        }
+        if(operation==2){
+            result=n-m;
+        }
+        if(operation==3){
+            result=n*m;
+        }
+        return result;
+
+    }
+
+    
     public String giveStatement(int n, int m, int operation){
         String statement = "";
         if(operation==1){
@@ -72,21 +142,6 @@ public class Controller {
             statement = "Cuanto es "+n+"*"+m;
         }
         return statement; 
-    }
-
-    public int giveResult(int n, int m, int operation){
-        int result = 0;
-        if(operation==1){
-            result = n+m;
-        }
-        if(operation==2){
-            result=n-m;
-        }
-        if(operation==3){
-            result=n*m;
-        }
-        return result;
-
     }
 
     public void updateNumQuetions(){
