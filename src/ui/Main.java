@@ -7,7 +7,7 @@ public class Main {
     private Scanner sc;
 
     public Main(){
-        control =new Controller("1", "Nico's Game", null);
+        control =new Controller("1", "Nico's Game");
         sc = new Scanner(System.in);
     }
     public static void main(String[] args){
@@ -20,6 +20,8 @@ public class Main {
         System.out.println("Welcome to "+control.getName()+"!");
         askName();
         initializeUserQuestions();
+        System.out.println(control.printList());
+        
     }
     
     public void askName(){
