@@ -7,22 +7,23 @@ public class Main {
     private Scanner sc;
 
     public Main(){
-        control =new Controller();
+        control =new Controller("1", "Nico's Game", null);
         sc = new Scanner(System.in);
-        startGame();
     }
     public static void main(String[] args){
         Main main = new Main();
+        main.startGame();
 
     }
 
     public void startGame(){
+        System.out.println("Welcome to "+control.getName()+"!");
         askName();
         initializeUserQuestions();
     }
     
     public void askName(){
-        System.out.println("Insert your name");
+        System.out.println("Please, Insert your name to start");
         String name = sc.nextLine();
     }
 
