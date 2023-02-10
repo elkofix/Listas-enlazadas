@@ -9,6 +9,7 @@ public class Main {
     public Main(){
         control =new Controller();
         sc = new Scanner(System.in);
+        askName();
     }
     public static void main(String[] args){
         Main main = new Main();
@@ -18,7 +19,7 @@ public class Main {
     public void askName(){
         System.out.println("Insert your name");
         String name = sc.nextLine();
-        
+
     }
     
 }
