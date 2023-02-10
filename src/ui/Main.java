@@ -30,6 +30,7 @@ public class Main {
     public void initializeUserQuestions(){
         System.out.println("Insert desired number of questions");
         int numberQuestions = sc.nextInt();
+        control.generateQuestion(numberQuestions);
     }
     
 }
