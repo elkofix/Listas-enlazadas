@@ -7,6 +7,11 @@ public class Controller {
     private Question first;
     private Question last;
     private int numQuestions;
+    public int getNumQuestions() {
+        return numQuestions;
+    }
+
+    private int userPoints;
 
     public Controller(String id, String name){
         this.id = id;
@@ -14,6 +19,7 @@ public class Controller {
         this.numQuestions = 0;
         this.first = null;
         this.last = null;
+        this.userPoints = 0;
     }
 
     public void addQuestion(Question newQuestion){
@@ -84,9 +90,6 @@ public class Controller {
         return search(id, first);
     }
 
-
-
-    
     public Question search(String id, Question current) {
         if(current==null){
             return current;
@@ -106,10 +109,10 @@ public class Controller {
         int m = ((int)((Math.random())*100))+1;
         int operation = ((int)((Math.random())*3))+1;
         int result = giveResult(n, m, operation);
-        System.out.println(operation);
         addQuestion = new Question(currentQuestion+"", giveStatement(n, m, operation), result);
         addQuestion(addQuestion);
         currentQuestion++;
+        this.numQuestions++;
         return generateQuestion(numberQuestions, addQuestion, currentQuestion);
 
     }
@@ -133,13 +136,13 @@ public class Controller {
     public String giveStatement(int n, int m, int operation){
         String statement = "";
         if(operation==1){
-            statement = "Cuanto es "+n+"+"+m;
+            statement = "How many is "+n+"+"+m;
         }
         if(operation==2){
-            statement = "Cuanto es "+n+"-"+m;
+            statement = "How many is "+n+"-"+m;
         }
         if(operation==3){
-            statement = "Cuanto es "+n+"*"+m;
+            statement = "How many is "+n+"*"+m;
         }
         return statement; 
     }
