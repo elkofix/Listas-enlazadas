@@ -42,6 +42,32 @@ public class Controller {
         return printlist(first, msj);
     }
 
+    public void deleteQuestion(String id){
+        Question current = search(id);
+        Question previous = searchPrevious(id);
+        if(previous!=null){
+            previous.setNext(current.getNext());
+            current=null;
+           }else{
+                this.first = current.getNext();
+                current=null;
+           }
+           return;
+       }
+
+    public Question searchPrevious(String id) {
+        return searchPrevious(id, first, last);
+    }
+
+    public Question searchPrevious(String id, Question current, Question previous){
+        if(current.getId()==id){
+            return previous;
+        }
+            previous = current;
+            current = current.getNext();
+        return searchPrevious(id, current, previous);
+    }
+
     private String printlist(Question current, String list){
         if(current==null){
             return list;
@@ -57,7 +83,7 @@ public class Controller {
 
     public String[] askQuestion(Question currentQuestion, boolean isSolved){
         if(currentQuestion==null){
-            String a[] = {"Terminaste el juego", "1"};
+            String a[] = {"Terminaste el juego", "-1"};
             return a;
         }
         if((currentQuestion.isSolved()==false && currentQuestion.isPointed()==false) || ((currentQuestion.isSolved()==false && currentQuestion.isPointed()==true) && currentQuestion.equals(first))){
