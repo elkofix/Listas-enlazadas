@@ -34,7 +34,7 @@ public class Main {
     }
 
     public void askQuestion(int numberQuestions){
-        if(numberQuestions<numberQuestions){
+        if(numberQuestions<=0){
             return;
         }
         String[] statementResult = control.askQuestion();
