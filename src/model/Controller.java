@@ -33,7 +33,7 @@ public class Controller {
         return search(id, first);
     }
 
-    public Question search(String id, Question current) {
+    private Question search(String id, Question current) {
         if(current==null){
             return current;
         }
@@ -48,7 +48,7 @@ public class Controller {
         return searchPrevious(id, first, null);
     }
 
-    public Question searchPrevious(String id, Question current, Question previous){
+    private Question searchPrevious(String id, Question current, Question previous){
         if(current.getId()==id){
             return previous;
         }
@@ -74,7 +74,7 @@ public class Controller {
         return askQuestion(first, false);
     }
 
-    public String[] askQuestion(Question currentQuestion, boolean isSolved){
+    private String[] askQuestion(Question currentQuestion, boolean isSolved){
         if(currentQuestion==null){
             String a[] = {"Terminaste el juego", "-1"};
             return a;
@@ -109,7 +109,7 @@ public class Controller {
         return generateQuestion(numberQuestions, null, 1);
     }
 
-    public boolean generateQuestion(int numberQuestions, Question addQuestion, int currentQuestion){
+    private boolean generateQuestion(int numberQuestions, Question addQuestion, int currentQuestion){
         if(currentQuestion>numberQuestions){
             return true;
         }
@@ -138,7 +138,6 @@ public class Controller {
         current = current.getNext();
         return printlist(current, list);
     }
-
 
     public int giveResult(int n, int m, int operation){
         int result = 1;
