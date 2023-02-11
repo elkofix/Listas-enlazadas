@@ -36,8 +36,9 @@ public class Main {
             return;
         }
         String[] statementResult = control.askQuestion();
-        System.out.println("How many is "+statementResult[0]);
+        
         if(!statementResult[1].equals("-1")){
+            System.out.println("How many is "+statementResult[0]);
             try {
                 int result = sc.nextInt();
                 
