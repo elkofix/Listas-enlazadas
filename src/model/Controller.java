@@ -45,7 +45,7 @@ public class Controller {
     }
 
     public Question searchPrevious(String id) {
-        return searchPrevious(id, first, last);
+        return searchPrevious(id, first, null);
     }
 
     public Question searchPrevious(String id, Question current, Question previous){
