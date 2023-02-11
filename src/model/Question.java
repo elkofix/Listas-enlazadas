@@ -7,6 +7,10 @@ public class Question {
     private boolean solved;
     private boolean pointed;
     private boolean correct;
+    public boolean isCorrect() {
+        return correct;
+    }
+
     private Question next;
     
     public String getStatement() {

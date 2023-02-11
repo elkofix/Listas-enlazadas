@@ -4,6 +4,11 @@ import java.lang.Math;
 public class Controller {
     private String id;
     private String name;
+    private String username;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     private Question first;
     private Question last;
     private int numQuestions;
@@ -98,6 +103,7 @@ public class Controller {
             
             search(id).wasSolved();
             search(id).wasCorrect();
+            this.userPoints++;
             correct = true;
         }else{
             search(id).wasSolved();
@@ -139,6 +145,24 @@ public class Controller {
         return printlist(current, list);
     }
 
+    public String displayResults(){
+        return displayResults(first, "", 0);
+    }
+
+    public String displayResults(Question current, String msj, int counter){
+        if(current==null){
+            return msj+"Skipped "+(this.numQuestions-counter)+"\n"+
+            this.username+", your score was: "+userPoints;
+        }
+        if(current.isCorrect()){
+            msj+=current.getStatement()+ " CORRECT \n";
+        }else{
+            msj+=current.getStatement()+ " INCORRECT \n";
+        }
+        current = current.getNext();
+        return displayResults(current, msj, ++counter);
+    }
+
     public int giveResult(int n, int m, int operation){
         int result = 1;
         if(operation==1){
@@ -154,16 +178,20 @@ public class Controller {
 
     }
 
+    public void penalize(){
+        this.userPoints = userPoints-3;
+    }
+
     public String giveStatement(int n, int m, int operation){
         String statement = "";
         if(operation==1){
-            statement = "How many is "+n+"+"+m;
+            statement = n+"+"+m;
         }
         if(operation==2){
-            statement = "How many is "+n+"-"+m;
+            statement = n+"-"+m;
         }
         if(operation==3){
-            statement = "How many is "+n+"*"+m;
+            statement = n+"*"+m;
         }
         return statement; 
     }

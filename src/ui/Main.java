@@ -19,13 +19,11 @@ public class Main {
     }
 
     public void startGame() {
-
         System.out.println("Welcome to " + control.getName() + "!");
         askName();
         initializeUserQuestions();
         System.out.println(control.printList());
         askQuestion();
-
     }
 
     public void askQuestion() {
@@ -38,7 +36,7 @@ public class Main {
             return;
         }
         String[] statementResult = control.askQuestion();
-        System.out.println(statementResult[0]);
+        System.out.println("How many is "+statementResult[0]);
         if(!statementResult[1].equals("-1")){
             try {
                 int result = sc.nextInt();
@@ -53,14 +51,15 @@ public class Main {
                 System.out.println(control.printList());
                 askQuestion();
             } catch (Exception e) {
-                
                 control.deleteQuestion(statementResult[1]);
+                control.penalize();
                 sc.nextLine();
                 System.out.println(control.printList());
                 askQuestion();
                 return;
             }
         }else{
+            System.out.println(control.displayResults());
             return;
         }
 
@@ -74,6 +73,7 @@ public class Main {
     public void askName() {
         System.out.println("Please, Insert your name to start");
         String name = sc.nextLine();
+        control.setUsername(name);
     }
 
     public void initializeUserQuestions() {
